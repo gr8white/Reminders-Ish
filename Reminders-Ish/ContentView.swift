@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  Reminders-Ish
-//
-//  Created by Cool-Ish on 12/30/24.
-//
-
 import SwiftUI
 
 struct ContentView: View {
