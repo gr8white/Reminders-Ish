@@ -4,7 +4,9 @@ import SwiftUI
 struct Reminders_IshApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                MyListScreen()
+            }.modelContainer(for: ListModel.self)
         }
     }
 }

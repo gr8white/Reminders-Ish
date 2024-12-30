@@ -1,8 +1,9 @@
 import SwiftUI
+import SwiftData
 
 struct MyListScreen: View {
     
-    let myLists = ["Work", "Personal", "Family"]
+    @Query private var myLists: [ListModel]
     
     @State private var isPresented: Bool = false
     
@@ -12,12 +13,13 @@ struct MyListScreen: View {
                 .font(.largeTitle)
                 .bold()
             
-            ForEach(myLists, id: \.self) { list in
+            ForEach(myLists) { list in
                 HStack {
                     Image(systemName: "line.3.horizontal.circle.fill")
                         .font(.system(size: 32))
+                        .foregroundStyle(Color(hex: list.colorCode))
                     
-                    Text(list)
+                    Text(list.name)
                 }
             }
             
@@ -39,6 +41,9 @@ struct MyListScreen: View {
     }
 }
 
-#Preview {
-    MyListScreen()
+#Preview { @MainActor in
+    NavigationStack {
+        MyListScreen()
+            .modelContainer(previewContainer)
+    }
 }

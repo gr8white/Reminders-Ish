@@ -6,6 +6,7 @@ struct AddListScreen: View {
     @State private var selectedColor: Color = .blue
     
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var context
     
     var body: some View {
         VStack {
@@ -30,15 +31,21 @@ struct AddListScreen: View {
             
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Done") {
+                    guard let hexCode = selectedColor.toHex() else { return }
                     
+                    let list = ListModel(name: listName, colorCode: hexCode)
+                    
+                    context.insert(list)
+                    dismiss()
                 }
             }
         }
     }
 }
 
-#Preview {
+#Preview { @MainActor in
     NavigationStack {
         AddListScreen()
     }
+    .modelContainer(previewContainer)
 }
