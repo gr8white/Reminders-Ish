@@ -33,7 +33,7 @@ struct AddListScreen: View {
                 Button("Done") {
                     guard let hexCode = selectedColor.toHex() else { return }
                     
-                    let list = ListModel(name: listName, colorCode: hexCode)
+                    let list = MyList(name: listName, colorCode: hexCode)
                     
                     context.insert(list)
                     dismiss()

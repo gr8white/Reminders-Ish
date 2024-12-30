@@ -3,7 +3,7 @@ import SwiftData
 
 struct MyListScreen: View {
     
-    @Query private var myLists: [ListModel]
+    @Query private var myLists: [MyList]
     
     @State private var isPresented: Bool = false
     
@@ -14,12 +14,16 @@ struct MyListScreen: View {
                 .bold()
             
             ForEach(myLists) { list in
-                HStack {
-                    Image(systemName: "line.3.horizontal.circle.fill")
-                        .font(.system(size: 32))
-                        .foregroundStyle(Color(hex: list.colorCode))
-                    
-                    Text(list.name)
+                NavigationLink {
+                    MyListDetailScreen(myList: list)
+                } label: {
+                    HStack {
+                        Image(systemName: "line.3.horizontal.circle.fill")
+                            .font(.system(size: 32))
+                            .foregroundStyle(Color(hex: list.colorCode))
+                        
+                        Text(list.name)
+                    }
                 }
             }
             

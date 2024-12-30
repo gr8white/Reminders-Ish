@@ -6,7 +6,7 @@ struct Reminders_IshApp: App {
         WindowGroup {
             NavigationStack {
                 MyListScreen()
-            }.modelContainer(for: ListModel.self)
+            }.modelContainer(for: MyList.self)
         }
     }
 }
