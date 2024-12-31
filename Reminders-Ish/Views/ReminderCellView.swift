@@ -17,7 +17,7 @@ struct ReminderCellView: View {
     
     var body: some View {
         HStack {
-            Image(systemName: "circle")
+            Image(systemName: checked ? "circle.inset.filled" : "circle")
                 .font(.title2)
                 .padding(.trailing, 5)
                 .onTapGesture {
@@ -39,6 +39,13 @@ struct ReminderCellView: View {
                 HStack {
                     if let reminderDate = reminder.reminderDate {
                         Text(reminderDate.formatted())
+                            .font(.subheadline)
+                            .foregroundStyle(.gray)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    
+                    if let reminderTime = reminder.reminderTime {
+                        Text(reminderTime.formatted())
                             .font(.subheadline)
                             .foregroundStyle(.gray)
                             .frame(maxWidth: .infinity, alignment: .leading)
