@@ -36,6 +36,13 @@ struct AddListScreen: View {
                     let list = MyList(name: listName, colorCode: hexCode)
                     
                     context.insert(list)
+                    
+                    do {
+                        try context.save()
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                    
                     dismiss()
                 }
             }

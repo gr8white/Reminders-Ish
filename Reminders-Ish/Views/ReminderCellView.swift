@@ -13,8 +13,6 @@ struct ReminderCellView: View {
     let isSelected: Bool
     let onEvent: (ReminderCellEvent) -> Void
     
-    let delay = Delay()
-    
     @State private var checked: Bool = false
     
     private func formatReminderDate(_ date: Date) -> String{
@@ -34,12 +32,7 @@ struct ReminderCellView: View {
                 .padding(.trailing, 5)
                 .onTapGesture {
                     checked.toggle()
-                    
-                    delay.cancelWork()
-                    
-                    delay.performWork {            
-                        onEvent(.onChecked(reminder, checked))
-                    }
+                    onEvent(.onChecked(reminder, checked))
                 }
             
             VStack (alignment: .leading) {

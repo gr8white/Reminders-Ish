@@ -48,6 +48,5 @@ struct MyListScreen: View {
 #Preview { @MainActor in
     NavigationStack {
         MyListScreen()
-            .modelContainer(previewContainer)
-    }
+    }.modelContainer(previewContainer)
 }
