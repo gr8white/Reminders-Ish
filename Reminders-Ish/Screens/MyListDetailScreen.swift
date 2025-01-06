@@ -16,6 +16,7 @@ struct MyListDetailScreen: View {
     private func saveReminder() {
         let reminder = Reminder(title: title)
         myList.reminders.append(reminder)
+        title = ""
     }
     
     private func isReminderSelected(_ reminder: Reminder) -> Bool {
@@ -24,7 +25,7 @@ struct MyListDetailScreen: View {
     
     var body: some View {
         VStack {
-            List(myList.reminders) { reminder in
+            List(myList.reminders.filter { !$0.isCompleted }) { reminder in
                 ReminderCellView(reminder: reminder, isSelected: isReminderSelected(reminder)) { event in
                     switch event {
                     case .onChecked(let reminder, let checked):
