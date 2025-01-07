@@ -5,7 +5,7 @@ struct Reminders_IshApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                MyListScreen()
+                MyListsScreen()
             }.modelContainer(for: MyList.self)
         }
     }

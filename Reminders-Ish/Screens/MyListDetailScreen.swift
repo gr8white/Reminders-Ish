@@ -22,11 +22,7 @@ struct MyListDetailScreen: View {
         myList.reminders.append(reminder)
         title = ""
         
-        do {
-            try context.save()
-        } catch {
-            print(error.localizedDescription)
-        }
+        try! context.save()
     }
     
     private func isReminderSelected(_ reminder: Reminder) -> Bool {
@@ -37,11 +33,7 @@ struct MyListDetailScreen: View {
         guard let index = indexSet.last else { return }
         context.delete(myList.reminders[index])
         
-        do {
-            try context.save()
-        } catch {
-            print(error.localizedDescription)
-        }
+        try! context.save()
     }
     
     var body: some View {

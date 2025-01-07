@@ -8,6 +8,8 @@ struct AddListScreen: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
     
+    var myList: MyList? = nil
+    
     var body: some View {
         VStack {
             Image(systemName: "line.3.horizontal.circle.fill")
@@ -20,6 +22,12 @@ struct AddListScreen: View {
             
             ColorPickerView(selectedColor: $selectedColor)
         }
+        .onAppear {
+            if let myList {
+                listName = myList.name
+                selectedColor = Color(hex: myList.colorCode)
+            }
+        }
         .navigationTitle("New List")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -31,18 +39,16 @@ struct AddListScreen: View {
             
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Done") {
-                    guard let hexCode = selectedColor.toHex() else { return }
-                    
-                    let list = MyList(name: listName, colorCode: hexCode)
-                    
-                    context.insert(list)
-                    
-                    do {
-                        try context.save()
-                    } catch {
-                        print(error.localizedDescription)
+                    if let myList {
+                        myList.name = listName
+                        myList.colorCode = selectedColor.toHex() ?? ""
+                    } else {
+                        guard let hexCode = selectedColor.toHex() else { return }
+                        let list = MyList(name: listName, colorCode: hexCode)
+                        context.insert(list)
                     }
                     
+                    try! context.save()
                     dismiss()
                 }
             }
