@@ -1,12 +1,11 @@
 import SwiftUI
 
 struct AddListScreen: View {
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var context
     
     @State private var listName: String = ""
     @State private var selectedColor: Color = .blue
-    
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.modelContext) private var context
     
     var myList: MyList? = nil
     
