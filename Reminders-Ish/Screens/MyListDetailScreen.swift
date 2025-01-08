@@ -4,6 +4,8 @@ import SwiftData
 struct MyListDetailScreen: View {
     
     var myList: MyList
+    @Query private var reminders: [Reminder]
+    
     @State private var title: String = ""
     @State private var isNewReminderAlertPresented: Bool = false
     
@@ -15,15 +17,28 @@ struct MyListDetailScreen: View {
     
     private func saveReminder() {
         let reminder = Reminder(title: title)
-        myList.reminders.append(reminder)
+        myList.reminders?.append(reminder)
         title = ""
         
         try! context.save()
     }
     
+    init(myList: MyList) {
+        self.myList = myList
+        
+        let listId = myList.persistentModelID
+        
+        let predicate = #Predicate<Reminder> { reminder in
+            reminder.list?.persistentModelID == listId
+            && !reminder.isCompleted
+        }
+        
+        _reminders = Query(filter: predicate)
+    }
+    
     var body: some View {
         VStack {
-            ReminderListView(reminders: myList.reminders.filter { !$0.isCompleted })
+            ReminderListView(reminders: myList.reminders?.filter { !$0.isCompleted } ?? [])
             
             Spacer()
             
